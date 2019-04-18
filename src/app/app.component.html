@@ -3,19 +3,81 @@
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+  <div class="container">
+    <h2>Angular Reactive Form Validation</h2>
+    <form [formGroup]="angForm" novalidate>
+        <div class="form-group">
+          <label class="center-block">Name:
+            <input class="form-control" formControlName="name">
+          </label>
+        </div>
+        <div class="alert alert-danger" *ngIf="angForm.get('name').hasError('required') && angForm.get('name').touched && angForm.get('name').value ==''" >
+          Name is required
+      </div>
+        <div class="form-group">
+          <label class="center-block">Email:
+            <input class="form-control" formControlName="email">
+          </label>
+        </div>
+        <div *ngIf="angForm.controls['email'].invalid && (angForm.controls['email'].dirty || angForm.controls['email'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['email'].errors.required">
+            Email is required.
+          </div>
+          <div *ngIf="angForm.controls['email'].errors.email">
+            Email is invalid.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="center-block">City:
+            <select class="form-control" formControlName="city">
+              <option>Bharuch</option>
+              <option>Vadodara</option>
+              <option>Surat</option>
+              </select>
+          </label>
+        </div>
+        <div class="alert alert-danger" *ngIf="angForm.get('city').hasError('required') && angForm.get('city').touched && angForm.get('city').value ==''" >
+          City is required
+      </div>
+
+
+      <div class="form-group">
+            <label class="center-block">Date:
+              <input type="date" class="form-control" formControlName="date">
+            </label>
+          </div>
+          <div class="alert alert-danger" *ngIf="angForm.get('date').hasError('required') && angForm.get('date').touched && angForm.get('date').value ==''" >
+            Date is required
+        </div>
+            
+          <div class="form-group">
+              <label class="center-block">Address:
+               
+                <textarea class="form-control" formControlName="address"></textarea>
+              </label>
+            </div>  
+          
+            <div class="alert alert-danger" *ngIf="angForm.get('address').hasError('required') && angForm.get('address').touched && angForm.get('address').value ==''" >
+              Address is required
+          </div>
+          
+
+            <div class="form-group">
+                <label class="center-block">check:
+                 
+                    <input type="checkbox" formControlName="check" > check here<br>
+                </label>
+              </div>
+            <!--   <div *ngIf="angForm.controls['check'].value == null || angForm.controls['check'].value === ''" class="alert alert-danger">
+                  <div *ngIf="angForm.controls['check'].errors.required">
+                  Address is required.
+                </div>
+              </div>  -->
+
+  </form>
+  <p>Form value: {{ angForm.value | json }}</p>
+  <p>Form status: {{ angForm.status | json }}</p>
+  </div>
 
 <router-outlet></router-outlet>
